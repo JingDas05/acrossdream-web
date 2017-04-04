@@ -1,28 +1,31 @@
 <template>
   <div id="app">
-    <hello-component></hello-component>
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <tg-header></tg-header>
+    <el-row>
+      <side-bar></side-bar>
+      <router-view></router-view>
+    </el-row>
   </div>
 </template>
 
 <script>
-import helloComponent from './views/HelloComponent.vue'
+import TgHeader from './components/Header.vue'
+import SideBar from './components/SideBar.vue'
 export default {
   name: 'app',
   components: {
-    helloComponent
+    TgHeader,
+    SideBar
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+/*#app {*/
+  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
+  /*-webkit-font-smoothing: antialiased;*/
+  /*-moz-osx-font-smoothing: grayscale;*/
+  /*text-align: center;*/
+  /*color: #2c3e50;*/
+/*}*/
 </style>
