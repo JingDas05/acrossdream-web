@@ -30,6 +30,6 @@ export default {
     min-height: 36px;
   }
   .bg-purple-dark {
-    background: #99a9bf;
+    background: #B3EE3A;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <el-col :span="15" :offset="9">
+  <el-col :span="19">
     <div class="grid-content bg-purple">
-      内容
+
     </div>
   </el-col>
 </template>
