@@ -2,7 +2,7 @@
   <el-col :span="5">
     <el-menu default-active="1"
              theme="light">
-      <el-menu-item v-for="(menu, index) in diaries" :key="menu.id">{{menu.name}}</el-menu-item>
+      <el-menu-item v-for="diary in diaries" :key="diary.id">{{diary.name}}</el-menu-item>
     </el-menu>
   </el-col>
 </template>
@@ -16,15 +16,15 @@ export default {
   components: {},
   computed: {},
   methods: {
-    requestDiaries (diaryId, pageNum, pageSize) {
+    requestDiaries (userId, pageNum, pageSize) {
       this.$http.post('/tg/api/diaries',
         {
-          diaryId: diaryId,
+          userId: userId,
           pageNum: pageNum,
           pageSize: pageSize
         }
       ).then(response => {
-        this.diaries = response.body.data.data
+        this.diaries = response.body.data
       }, response => {
         console.error(response)
       })
