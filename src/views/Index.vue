@@ -7,12 +7,37 @@
 </template>
 
 <script>
+// 自动注入store.js 中的module 的pageParam， 即modules里面的page_state
 export default {
-  name: 'hello',
+  vuex: {
+    getters: {
+      diaryId: ({pageState}) => pageState.diaryId
+    }
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
+  },
+  methods: {
+    requestPages (userId, pageNum, pageSize) {
+      this.$http.post('/tg/api/diaries',
+        {
+          'diaryId': '1c2946252b5241d2b95126bc438510b2',
+          'startTime': '2017-04-03T08:50:00.000Z',
+          'endTime': '2017-04-08T10:00:00.000Z',
+          userId: userId,
+          pageNum: pageNum,
+          pageSize: pageSize
+        }
+      ).then(response => {
+        this.diaries = response.body.data
+      }, response => {
+        console.error(response)
+      })
+    }
+  },
+  created () {
+    console.log(this.diaryId)
   }
 }
 </script>

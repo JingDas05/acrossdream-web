@@ -7,7 +7,14 @@
   </el-col>
 </template>
 <script>
+// 注入action, 这个状态在 Index.vue中 getter用到
+import { setDiaryId } from '../vuex/actions/page_action'
 export default {
+  vuex: {
+    actions: {
+      setDiaryId
+    }
+  },
   data () {
     return {
       diaries: []
@@ -16,6 +23,9 @@ export default {
   components: {},
   computed: {},
   methods: {
+    test () {
+      this.setDiaryId('123456')
+    },
     requestDiaries (userId, pageNum, pageSize) {
       this.$http.post('/tg/api/diaries',
         {
@@ -31,6 +41,7 @@ export default {
     }
   },
   created () {
+    this.test()
     this.requestDiaries('12345678123456781234567812345678', 1, 10)
   },
   activated () {
