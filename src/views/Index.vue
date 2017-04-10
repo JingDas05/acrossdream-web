@@ -17,13 +17,13 @@
       diaryId: 'diaryId'
     }),
     methods: {
-      requestPages (userId, pageNum, pageSize) {
+      requestPages (userId, diaryId, startTime, endTime, pageNum, pageSize) {
         this.$http.post('/tg/api/diaries',
           {
-            'diaryId': '1c2946252b5241d2b95126bc438510b2',
-            'startTime': '2017-04-03T08:50:00.000Z',
-            'endTime': '2017-04-08T10:00:00.000Z',
             userId: userId,
+            diaryId: diaryId,
+            startTime: startTime,
+            endTime: '2017-04-08T10:00:00.000Z',
             pageNum: pageNum,
             pageSize: pageSize
           }
@@ -35,7 +35,11 @@
       }
     },
     created () {
-      console.log(this.diaryId)
+    },
+    watch: {
+      diaryId (newValue, oldValue) {
+        this.requestPages('', '1c2946252b5241d2b95126bc438510b2', '2017-04-03T08:50:00.000Z')
+      }
     }
   }
 </script>
