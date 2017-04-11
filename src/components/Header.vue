@@ -1,11 +1,13 @@
 <template>
-  <el-row>
-    <el-col :span="24">
-      <div class="grid-content bg-purple-dark">
+  <div style="margin-bottom: 10px">
+    <el-row>
+      <el-col :span="24">
+        <div class="grid-content bg-purple-dark">
 
-      </div>
-    </el-col>
-  </el-row>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 <script>
 export default {
@@ -30,6 +32,6 @@ export default {
     min-height: 36px;
   }
   .bg-purple-dark {
-    background: #B3EE3A;
+    background: #13ce66;
   }
 </style>
