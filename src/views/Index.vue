@@ -1,14 +1,14 @@
 <template>
   <el-col :span="19">
     <div>
-      <div style="text-align: center">
+      <div>
         <div>
           <el-input style="width: 60%" v-model="key" placeholder="请输入搜索内容"></el-input>
           <el-button type="success">搜索</el-button>
         </div>
         <div>
           日记：
-          <el-select style="width: 30%" v-model="queryParams.diaryId" placeholder="请选择日记">
+          <el-select v-model="queryParams.diaryId" placeholder="请选择日记">
             <el-option
               v-for="(diary, index) in diaries"
               :key="diary.id"
