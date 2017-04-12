@@ -2,13 +2,12 @@
   <el-col :span="19">
     <div>
       <div>
-        <div>
+        <div style="margin-bottom: 10px">
           <el-input style="width: 60%" v-model="key" placeholder="请输入搜索内容"></el-input>
           <el-button type="success">搜索</el-button>
         </div>
         <div>
-          日记：
-          <el-select v-model="queryParams.diaryId" placeholder="请选择日记">
+          <el-select v-model="queryParams.diaryId" clearable placeholder="请选择日记">
             <el-option
               v-for="(diary, index) in diaries"
               :key="diary.id"
@@ -16,6 +15,20 @@
               :value="diary.id">
             </el-option>
           </el-select>
+          <el-date-picker
+            v-model="queryParams.startTime"
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择起始时间">
+          </el-date-picker>
+          <span>-</span>
+          <el-date-picker
+            v-model="queryParams.endTime"
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择结束时间">
+          </el-date-picker>
+          <el-button type="success">搜索</el-button>
         </div>
       </div>
       <ul style="list-style: none">
@@ -61,14 +74,19 @@
   export default {
     data () {
       return {
-        queryParams: {},
+        queryParams: {
+          diaryId: '',
+          startTime: '',
+          endTime: ''
+        },
+        pages: [],
         diaries: [],
         key: ''
       }
     },
     computed: mapGetters({
-      // 映射 this.doneCount 为 store.getters.diaryId
-      diaryId: 'diaryId'
+      // 映射 this.localDiaryId 为 store.getters.diaryId
+      diaryId: 'localDiaryId'
     }),
     methods: {
       requestDiaries (userId, pageNum, pageSize) {
@@ -95,7 +113,7 @@
             pageSize: pageSize
           }
         ).then(response => {
-          this.diaries = response.body.data
+          this.pages = response.body.data
         }, response => {
           console.error(response)
         })
@@ -105,8 +123,15 @@
       this.requestDiaries('12345678123456781234567812345678', 1, 100)
     },
     watch: {
-      diaryId (newValue, oldValue) {
-        this.requestPages('', '1c2946252b5241d2b95126bc438510b2', '2017-04-03T08:50:00.000Z')
+      localDiaryId (newValue, oldValue) {
+        console.log(newValue)
+        this.requestPages(
+          '12345678123456781234567812345678',
+          '1c2946252b5241d2b95126bc438510b2',
+          '2017-04-03T08:50:00.000Z',
+          '2017-04-08T10:00:00.000Z',
+          0,
+          10)
       }
     }
   }

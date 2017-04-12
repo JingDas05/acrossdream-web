@@ -1,9 +1,8 @@
 <template>
   <el-col :span="5">
-    <el-menu default-active="1"
-             theme="light">
+    <el-menu default-active="1" theme="light">
       <el-menu-item
-        index="index"
+        :index="diary.id"
         v-for="(diary, index) in diaries"
         :key="diary.id"
         v-on:click="setDiaryId(diary.id)">
