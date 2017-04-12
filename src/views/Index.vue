@@ -32,37 +32,13 @@
         </div>
       </div>
       <ul style="list-style: none">
-        <li>
-          <h2>标题</h2>
+        <li v-for="(page, index) in pages">
+          <h2>{{page.name}}</h2>
           <div>
-            <span>创建人：武思</span>&nbsp;&nbsp;
-            <span>创建时间：2017年4月12日</span>
+            <!--<span>创建人：{{}}</span>&nbsp;&nbsp;-->
+            <span>创建时间：{{page.createTime}}</span>
           </div>
-          <p>内容，各种记录</p>
-        </li>
-        <li>
-          <h2>标题</h2>
-          <div>
-            <span>创建人：武思</span>&nbsp;&nbsp;
-            <span>创建时间：2017年4月12日</span>
-          </div>
-          <p>内容，各种记录</p>
-        </li>
-        <li>
-          <h2>标题</h2>
-          <div>
-            <span>创建人：武思</span>&nbsp;&nbsp;
-            <span>创建时间：2017年4月12日</span>
-          </div>
-          <p>内容，各种记录</p>
-        </li>
-        <li>
-          <h2>标题</h2>
-          <div>
-            <span>创建人：武思</span>&nbsp;&nbsp;
-            <span>创建时间：2017年4月12日</span>
-          </div>
-          <p>内容，各种记录</p>
+          <p v-html="page.content"></p>
         </li>
       </ul>
     </div>
@@ -86,7 +62,7 @@
     },
     computed: mapGetters({
       // 映射 this.localDiaryId 为 store.getters.diaryId
-      diaryId: 'localDiaryId'
+      localDiaryId: 'diaryId'
     }),
     methods: {
       requestDiaries (userId, pageNum, pageSize) {
@@ -103,12 +79,12 @@
         })
       },
       requestPages (userId, diaryId, startTime, endTime, pageNum, pageSize) {
-        this.$http.post('/tg/api/diaries',
+        this.$http.post('/tg/api/pages/getByPeriod',
           {
             userId: userId,
             diaryId: diaryId,
             startTime: startTime,
-            endTime: '2017-04-08T10:00:00.000Z',
+            endTime: endTime,
             pageNum: pageNum,
             pageSize: pageSize
           }
@@ -120,18 +96,17 @@
       }
     },
     created () {
-      this.requestDiaries('12345678123456781234567812345678', 1, 100)
+      this.requestDiaries('12345678123456781234567812345678', this.$consts.pageNum, this.$consts.pageSize)
     },
     watch: {
       localDiaryId (newValue, oldValue) {
-        console.log(newValue)
         this.requestPages(
           '12345678123456781234567812345678',
-          '1c2946252b5241d2b95126bc438510b2',
-          '2017-04-03T08:50:00.000Z',
-          '2017-04-08T10:00:00.000Z',
-          0,
-          10)
+          newValue,
+          '',
+          '',
+          this.$consts.pageNum,
+          this.$consts.pageSize)
       }
     }
   }

@@ -41,7 +41,7 @@ export default {
     }
   },
   created () {
-    this.requestDiaries('12345678123456781234567812345678', 1, 10)
+    this.requestDiaries('12345678123456781234567812345678', this.$consts.pageNum, this.$consts.pageSize)
   },
   activated () {
   },
