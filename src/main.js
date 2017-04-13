@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-default/index.css'
 import VueResource from 'vue-resource'
 import store from './vuex/store'
 import plugins from './plugins/index'
+import './res/js/filter/index'
 
 Vue.config.productionTip = false
 Vue.use(elementUI)

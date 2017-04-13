@@ -32,14 +32,17 @@
         </div>
       </div>
       <ul style="list-style: none">
-        <li v-for="(page, index) in pages">
+        <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
+                     v-for="(page, index) in pages"
+                     :key="index"
+                     tag="li">
           <h2>{{page.name}}</h2>
           <div>
             <!--<span>创建人：{{}}</span>&nbsp;&nbsp;-->
             <span>创建时间：{{page.createTime}}</span>
           </div>
           <p v-html="page.content"></p>
-        </li>
+        </router-link>
       </ul>
     </div>
   </el-col>
