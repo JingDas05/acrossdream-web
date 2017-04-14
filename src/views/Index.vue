@@ -3,8 +3,8 @@
     <div>
       <div>
         <div style="margin-bottom: 10px">
-          <el-input style="width: 60%" v-model="key" placeholder="请输入搜索内容"></el-input>
-          <el-button type="success">搜索</el-button>
+          <el-input v-on:keyup.enter="search(keyword)" style="width: 60%" v-model="keyword" placeholder="请输入搜索内容"></el-input>
+          <el-button @click="search(keyword)" type="success">搜索</el-button>
         </div>
         <div>
           <el-select v-model="queryParams.diaryId" clearable placeholder="请选择日记">
@@ -39,7 +39,7 @@
           <h2>{{page.name}}</h2>
           <div>
             <!--<span>创建人：{{}}</span>&nbsp;&nbsp;-->
-            <span>创建时间：{{page.createTime}}</span>
+            <span><span class="el-icon-date">&nbsp;&nbsp;</span>{{page.createTime}}</span>
           </div>
           <p v-html="page.content"></p>
         </router-link>
@@ -53,7 +53,11 @@
   export default {
     data () {
       return {
+        keyword: '',
         queryParams: {
+          userId: '',
+          pageSize: 10,
+          pageNum: 1,
           diaryId: '',
           startTime: '',
           endTime: ''
@@ -68,6 +72,39 @@
       localDiaryId: 'diaryId'
     }),
     methods: {
+      search (keyword) {
+        this.requestSearch(keyword, 0, 10)
+      },
+      requestBy (userId, pageNum, pageSize, diaryId, startTime, endTime) {
+        this.$http.post('/tg/api/pages/getByPeriod',
+          {
+            userId: userId,
+            pageNum: pageNum,
+            pageSize: pageSize,
+            diaryId: diaryId,
+            startTime: startTime,
+            endTime: endTime
+          }
+        ).then(response => {
+          this.pages = response.body.data
+        }, response => {
+          console.error(response)
+        })
+      },
+      requestSearch (keyword, from, size) {
+        console.error(keyword)
+        this.$http.post('/tg/api/search',
+          {
+            keyword: keyword,
+            from: from,
+            size: size
+          }
+        ).then(response => {
+          this.pages = response.body.data
+        }, response => {
+          console.error(response)
+        })
+      },
       requestDiaries (userId, pageNum, pageSize) {
         this.$http.post('/tg/api/diaries',
           {

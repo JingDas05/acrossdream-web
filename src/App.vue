@@ -3,7 +3,9 @@
     <tg-header></tg-header>
     <el-row style="width: 76%; margin: auto">
       <side-bar></side-bar>
-      <router-view></router-view>
+      <keep-alive>>
+        <router-view></router-view>
+      </keep-alive>
     </el-row>
   </div>
 </template>
