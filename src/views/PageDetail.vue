@@ -5,10 +5,10 @@
       <h1 style="text-align: center">{{pageDetail.name}}</h1>
     </div>
     <div style="border-bottom: solid; clear: both">
-      <span>{{pageDetail.createTime}}</span>
-      <span>{{pageDetail.weather}}</span>
-      <span>{{pageDetail.mind}}</span>
-      <span>来自于:{{pageDetail.diaryName}}</span>
+      <span class="el-icon-date">&nbsp;{{pageDetail.createTime}}&nbsp;&nbsp;</span>
+      <span>{{pageDetail.weather}}&nbsp;&nbsp;</span>
+      <span>{{pageDetail.mind}}&nbsp;&nbsp;</span>
+      <span>来自于:{{pageDetail.diaryName}}&nbsp;&nbsp;</span>
     </div>
     <div>
       <p v-html="pageDetail.content"></p>
