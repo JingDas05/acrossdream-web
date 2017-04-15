@@ -17,32 +17,35 @@
           </el-select>
           <el-date-picker
             v-model="queryParams.startTime"
-            type="datetime"
-            format="yyyy-MM-dd HH:mm:ss"
+            type="date"
+            format="yyyy-MM-dd"
             placeholder="选择起始时间">
           </el-date-picker>
           <span>-</span>
           <el-date-picker
             v-model="queryParams.endTime"
-            type="datetime"
-            format="yyyy-MM-dd HH:mm:ss"
+            type="date"
+            format="yyyy-MM-dd"
             placeholder="选择结束时间">
           </el-date-picker>
-          <el-button type="success">搜索</el-button>
+          <el-button @click="queryBy(queryParams.diaryId, queryParams.startTime, queryParams.endTime)" type="success">搜索</el-button>
         </div>
       </div>
       <ul style="list-style: none">
-        <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
-                     v-for="(page, index) in pages"
-                     :key="index"
-                     tag="li">
-          <h2>{{page.name}}</h2>
+        <li v-for="(page, index) in pages"
+            :key="index"
+            tag="li">
+            <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
+                         v-html="page.name"
+                         tag="h2"
+                         style="cursor: pointer">
+            </router-link>
           <div>
             <!--<span>创建人：{{}}</span>&nbsp;&nbsp;-->
-            <span><span class="el-icon-date">&nbsp;&nbsp;</span>{{page.createTime}}</span>
+            <span class="el-icon-date">&nbsp;&nbsp;{{page.createTime}}</span>
           </div>
           <p v-html="page.content"></p>
-        </router-link>
+        </li>
       </ul>
     </div>
   </el-col>
@@ -74,6 +77,11 @@
     methods: {
       search (keyword) {
         this.requestSearch(keyword, 0, 10)
+      },
+      queryBy (diaryId, startTime, endTime) {
+        console.error(startTime)
+        console.error(endTime)
+        this.requestBy('12345678123456781234567812345678', 0, 8, diaryId, startTime, endTime)
       },
       requestBy (userId, pageNum, pageSize, diaryId, startTime, endTime) {
         this.$http.post('/tg/api/pages/getByPeriod',
