@@ -1,6 +1,6 @@
 <template>
   <div style="float: left; width: 65%">
-    <el-button @click="toIndex()" type="success">返回</el-button>
+    <el-button @click="back()" type="success">返回</el-button>
     <div>
       <h1 style="text-align: center">{{pageDetail.name}}</h1>
     </div>
@@ -36,7 +36,7 @@ export default {
         console.error(response)
       })
     },
-    toIndex () {
+    back () {
       this.$router.back()
     }
   },

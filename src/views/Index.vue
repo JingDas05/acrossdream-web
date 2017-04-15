@@ -3,10 +3,12 @@
     <div>
       <div>
         <div style="margin-bottom: 10px">
-          <el-input v-on:keyup.enter="search(keyword)" style="width: 60%" v-model="keyword" placeholder="请输入搜索内容"></el-input>
-          <el-button @click="search(keyword)" type="success">搜索</el-button>
           <el-button @click="toDiaryCreate()" type="primary" icon="edit">创建日记</el-button>
           <el-button @click="toPageCreate()" type="primary" icon="edit">创建记录</el-button>
+        </div>
+        <div style="margin-bottom: 10px">
+          <el-input v-on:keyup.enter="search(keyword)" style="width: 60%" v-model="keyword" placeholder="请输入搜索内容"></el-input>
+          <el-button @click="search(keyword)" type="success">搜索</el-button>
         </div>
         <div>
           <el-select v-model="queryParams.diaryId" clearable placeholder="请选择日记">

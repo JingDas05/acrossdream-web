@@ -1,17 +1,22 @@
 <template>
   <div style="float: left; width: 40%">
-    <el-form label-width="100px" :model="diary" :rules="rules" ref="diary" label-position="left">
-      <el-form-item label="日记名称" prop="name">
-        <el-input v-model="diary.name"></el-input>
-      </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input v-model="diary.description"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm()">创建</el-button>
-        <el-button @click="resetForm()">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <div>
+      <el-button @click="back()" type="success">返回</el-button>
+    </div>
+    <div>
+      <el-form label-width="100px" :model="diary" :rules="rules" ref="diary" label-position="left">
+        <el-form-item label="日记名称" prop="name">
+          <el-input v-model="diary.name"></el-input>
+        </el-form-item>
+        <el-form-item label="描述" prop="description">
+          <el-input v-model="diary.description"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm()">创建</el-button>
+          <el-button @click="resetForm()">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 <script>
@@ -25,7 +30,7 @@ export default {
       },
       rules: {
         name: [
-          {required: true, message: '请输入日记名称', trigger: 'blur'},
+          {required: true, message: '请输入日记名称', trigger: 'change'},
           {min: 1, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur'}
         ],
         description: [
@@ -38,6 +43,9 @@ export default {
   components: {},
   computed: {},
   methods: {
+    back () {
+      this.$router.back()
+    },
     resetForm () {
       this.diary = {}
     },
