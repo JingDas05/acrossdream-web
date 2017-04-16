@@ -1,10 +1,9 @@
 <template>
   <div style="margin-bottom: 10px">
     <el-row>
-      <el-col :span="24">
-        <div class="grid-content bg-purple-dark">
-
-        </div>
+      <el-col :span="24" class="grid-content bg-purple-dark">
+        <router-link tag="span" :to="{name:'hello'}" style="cursor: pointer">AcrossDream</router-link>
+        <router-link tag="span" :to="{name:'login'}" style="cursor: pointer">登陆</router-link>
       </el-col>
     </el-row>
   </div>

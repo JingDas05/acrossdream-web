@@ -4,6 +4,7 @@ import Hello from '@/views/Index'
 import PageDetail from '../views/PageDetail'
 import PageCreate from '../views/PageCreate'
 import DiaryCreate from '../views/DiaryCreate'
+import Login from '../views/Login'
 
 Vue.use(Router)
 
@@ -11,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
+      name: 'hello',
       component: Hello
     },
     {
@@ -28,6 +29,11 @@ export default new Router({
       path: '/diary/create',
       name: 'diaryCreate',
       component: DiaryCreate
+    },
+    {
+      path: '/user/login',
+      name: 'login',
+      component: Login
     }
   ]
 })

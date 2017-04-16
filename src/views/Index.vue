@@ -38,7 +38,7 @@
       <ul style="list-style: none">
         <li v-for="(page, index) in pages"
             :key="index"
-            tag="li">
+            :class="[index%2==0 ? 'back-ground' : '']">
             <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
                          v-html="page.name"
                          tag="h2"
@@ -52,6 +52,14 @@
         </li>
       </ul>
     </div>
+    <div>
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :page-size="10"
+        layout="prev, pager, next, jumper"
+        :total=total>
+      </el-pagination>
+    </div>
   </el-col>
 </template>
 
@@ -60,6 +68,7 @@
   export default {
     data () {
       return {
+        total: 0,
         keyword: '',
         queryParams: {
           userId: '',
@@ -79,6 +88,15 @@
       localDiaryId: 'diaryId'
     }),
     methods: {
+      handleCurrentChange (currentPage) {
+        this.requestPages(
+          '12345678123456781234567812345678',
+          this.queryParams.diaryId,
+          this.queryParams.startTime,
+          this.queryParams.endTime,
+          currentPage,
+          this.$consts.pageSize)
+      },
       toDiaryCreate () {
         this.$router.push({name: 'diaryCreate'})
       },
@@ -89,8 +107,6 @@
         this.requestSearch(keyword, 0, 10)
       },
       queryBy (diaryId, startTime, endTime) {
-        console.error(startTime)
-        console.error(endTime)
         this.requestBy('12345678123456781234567812345678', 0, 8, diaryId, startTime, endTime)
       },
       requestBy (userId, pageNum, pageSize, diaryId, startTime, endTime) {
@@ -117,6 +133,7 @@
             size: size
           }
         ).then(response => {
+          this.total = response.body.total
           this.pages = response.body.data
         }, response => {
           console.error(response)
@@ -146,6 +163,7 @@
             pageSize: pageSize
           }
         ).then(response => {
+          this.total = response.body.total
           this.pages = response.body.data
         }, response => {
           console.error(response)
@@ -173,4 +191,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .back-ground {
+    background-color: #E5E9F2;
+  }
 </style>
