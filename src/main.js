@@ -9,11 +9,13 @@ import VueResource from 'vue-resource'
 import store from './vuex/store'
 import plugins from './plugins/index'
 import './res/js/filter/index'
+import VueQuillEditor from 'vue-quill-editor'
 
 Vue.config.productionTip = false
 Vue.use(elementUI)
 Vue.use(VueResource)
 Vue.use(plugins)
+Vue.use(VueQuillEditor)
 
 /* eslint-disable no-new */
 new Vue({

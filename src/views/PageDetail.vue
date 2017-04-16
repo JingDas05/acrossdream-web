@@ -41,6 +41,8 @@ export default {
     }
   },
   created () {
+  },
+  activated () {
     this.requestPageDetail('12345678123456781234567812345678', this.$route.params.pageId)
   },
   components: {

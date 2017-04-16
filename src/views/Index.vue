@@ -110,7 +110,6 @@
         })
       },
       requestSearch (keyword, from, size) {
-        console.error(keyword)
         this.$http.post('/tg/api/search',
           {
             keyword: keyword,
@@ -154,6 +153,8 @@
       }
     },
     created () {
+    },
+    activated () {
       this.requestDiaries('12345678123456781234567812345678', this.$consts.pageNum, this.$consts.pageSize)
     },
     watch: {

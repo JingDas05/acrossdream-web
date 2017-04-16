@@ -15,7 +15,7 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/pages/:pageId',
+      path: '/pages/detail/:pageId',
       name: 'pageDetail',
       component: PageDetail
     },
