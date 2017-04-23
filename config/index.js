@@ -28,11 +28,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/tg': {
-        target: 'http://192.168.1.100:5555',
-        pathRewrite: {
-          '^/tg': '/tg'
-        },
+      // '/tg': {
+      //   target: 'http://192.168.1.100:5555',
+      //   pathRewrite: {
+      //     '^/tg': '/tg'
+      //   },
+        '/tg': {
+          target: 'http://192.168.1.102:3333',
+          pathRewrite: {
+            '^/tg': ''
+          },
         secure: false
       }
     },

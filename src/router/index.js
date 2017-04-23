@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/views/Index'
+import Index from '@/views/Index'
 import PageDetail from '../views/PageDetail'
 import PageCreate from '../views/PageCreate'
 import DiaryCreate from '../views/DiaryCreate'
@@ -12,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'hello',
-      component: Hello
+      name: 'index',
+      component: Index
     },
     {
       path: '/pages/detail/:pageId',

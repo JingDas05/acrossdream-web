@@ -2,8 +2,9 @@
   <div style="margin-bottom: 10px">
     <el-row>
       <el-col :span="24" class="grid-content bg-purple-dark">
-        <router-link tag="span" :to="{name:'hello'}" style="cursor: pointer">AcrossDream</router-link>
+        <router-link tag="span" :to="{name:'index'}" style="cursor: pointer">AcrossDream</router-link>
         <router-link tag="span" :to="{name:'login'}" style="cursor: pointer">登陆</router-link>
+        <span style="cursor: pointer" @click="logout()">退出</span>
       </el-col>
     </el-row>
   </div>
@@ -15,7 +16,12 @@ export default {
   },
   components: {},
   computed: {},
-  methods: {},
+  methods: {
+    logout () {
+      this.$removeToken()
+      this.$router.push({name: 'index'})
+    }
+  },
   created () {
   },
   activated () {

@@ -1,14 +1,14 @@
 <template>
   <div style="float: left; width: 65%">
     <el-form label-width="100px" :model="user" :rules="rules" ref="user" label-position="left">
-      <el-form-item label="用户名" prop="name">
-        <el-input v-model="user.name"></el-input>
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="user.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="user.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">登陆</el-button>
+        <el-button type="primary" @click="submitForm(user)">登陆</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -18,22 +18,42 @@ export default {
   data () {
     return {
       user: {
-        name: '',
+        username: '',
         password: ''
       },
       rules: {
-        name: [
-          {required: true, message: '输入姓名', trigger: 'change'}
+        username: [
+          {required: true, message: '输入电话', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '输入密码', trigger: 'change'}
+          {required: true, message: '输入密码', trigger: 'blur'},
+          {min: 3, max: 30, message: '长度在 3 到 50 个字符', trigger: 'blur'}
         ]
       }
     }
   },
   components: {},
   computed: {},
-  methods: {},
+  methods: {
+    submitForm (user) {
+      this.login(user)
+    },
+    login (user) {
+      this.$http.post('/tg/login',
+        user
+      ).then(response => {
+        console.log(response)
+        this.$setToken(response.body.token)
+        this.$router.push({name: 'index'})
+      }, response => {
+        console.error(response)
+        this.$notify.error({
+          title: '错误',
+          message: '登陆失败'
+        })
+      })
+    }
+  },
   created () {
   },
   activated () {
