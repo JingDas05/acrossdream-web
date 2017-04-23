@@ -90,7 +90,7 @@
     methods: {
       handleCurrentChange (currentPage) {
         this.requestPages(
-          '12345678123456781234567812345678',
+          '',
           this.queryParams.diaryId,
           this.queryParams.startTime,
           this.queryParams.endTime,
@@ -107,7 +107,7 @@
         this.requestSearch(keyword, 0, 10)
       },
       queryBy (diaryId, startTime, endTime) {
-        this.requestBy('12345678123456781234567812345678', 0, 8, diaryId, startTime, endTime)
+        this.requestBy('', 0, 8, diaryId, startTime, endTime)
       },
       requestBy (userId, pageNum, pageSize, diaryId, startTime, endTime) {
         this.$http.post('/tg/api/pages/getByPeriod',
@@ -173,12 +173,12 @@
     created () {
     },
     activated () {
-      this.requestDiaries('12345678123456781234567812345678', this.$consts.pageNum, this.$consts.pageSize)
+      this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
     },
     watch: {
       localDiaryId (newValue, oldValue) {
         this.requestPages(
-          '12345678123456781234567812345678',
+          '',
           newValue,
           '',
           '',

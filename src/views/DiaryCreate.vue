@@ -55,7 +55,7 @@ export default {
     requestCreateDiary (name, description) {
       this.$http.post('/tg/api/diaries/create',
         {
-          authorId: '12345678123456781234567812345678',
+          authorId: '',
           name: name,
           description: description
         }

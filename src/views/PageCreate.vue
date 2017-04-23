@@ -82,7 +82,7 @@ export default {
     requestCreatePage (diaryId, name, content, mind, weather) {
       this.$http.post('tg/api/pages/create',
         {
-          authorId: '12345678123456781234567812345678',
+          authorId: '',
           diaryId: diaryId,
           name: name,
           content: content,
@@ -110,7 +110,7 @@ export default {
   created () {
   },
   activated () {
-    this.requestDiaries('12345678123456781234567812345678', this.$consts.pageNum, this.$consts.pageSize)
+    this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
   },
   deactivated () {
   }

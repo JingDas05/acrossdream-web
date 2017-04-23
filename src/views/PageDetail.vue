@@ -24,9 +24,8 @@ export default {
   },
   methods: {
     requestPageDetail (userId, pageId) {
-      this.$http.get('/tg/api/pages/{userId}/{pageId}', {
+      this.$http.get('/tg/api/pages/detail/{pageId}', {
         params: {
-          userId: userId,
           pageId: pageId
         }
       }
@@ -43,7 +42,7 @@ export default {
   created () {
   },
   activated () {
-    this.requestPageDetail('12345678123456781234567812345678', this.$route.params.pageId)
+    this.requestPageDetail('', this.$route.params.pageId)
   },
   components: {
   }
