@@ -52,8 +52,16 @@ export default {
   computed: {
   },
   methods: {
+    clear () {
+      this.pageParams.diaryId = ''
+      this.pageParams.content = ''
+      this.pageParams.mind = ''
+      this.pageParams.weather = ''
+    },
     back () {
-      this.$router.back()
+//      this.$router.back()
+      this.$router.push({name: 'index'})
+      this.clear()
     },
     create () {
       this.requestCreatePage(this.pageParams.diaryId,
@@ -97,6 +105,10 @@ export default {
             type: 'success'
           })
           this.$router.push({name: 'pageDetail', params: {pageId: response.body.id}})
+          // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
+          this.$store.dispatch('setShowDiaries', false)
+          this.$store.dispatch('flushDiaries', false)
+          this.clear()
         }
       }, response => {
         console.error(response)

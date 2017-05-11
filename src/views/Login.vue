@@ -5,7 +5,7 @@
         <el-input v-model="user.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="user.password"></el-input>
+        <el-input type="password" v-model="user.password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(user)">登陆</el-button>
@@ -14,53 +14,56 @@
   </div>
 </template>
 <script>
-export default {
-  data () {
-    return {
-      user: {
-        username: '',
-        password: ''
-      },
-      rules: {
-        username: [
-          {required: true, message: '输入电话', trigger: 'blur'}
-        ],
-        password: [
-          {required: true, message: '输入密码', trigger: 'blur'},
-          {min: 3, max: 30, message: '长度在 3 到 50 个字符', trigger: 'blur'}
-        ]
+  export default {
+    data () {
+      return {
+        user: {
+          username: '',
+          password: ''
+        },
+        rules: {
+          username: [
+            {required: true, message: '输入电话', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '输入密码', trigger: 'blur'},
+            {min: 3, max: 30, message: '长度在 3 到 50 个字符', trigger: 'blur'}
+          ]
+        }
       }
-    }
-  },
-  components: {},
-  computed: {},
-  methods: {
-    submitForm (user) {
-      this.login(user)
     },
-    login (user) {
-      this.$http.post('/tg/login',
-        user
-      ).then(response => {
-        console.log(response)
-        this.$setToken(response.body.token)
-        this.$router.push({name: 'index'})
-      }, response => {
-        console.error(response)
-        this.$notify.error({
-          title: '错误',
-          message: '登陆失败'
+    components: {},
+    computed: {},
+    methods: {
+      submitForm (user) {
+        this.login(user)
+      },
+      login (user) {
+        this.$http.post('/tg/login',
+          user
+        ).then(response => {
+          console.log(response)
+          this.$setToken(response.body.token)
+          this.$router.push({name: 'index'})
+          // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
+          this.$store.dispatch('setShowDiaries', true)
+          this.user = {}
+        }, response => {
+          console.error(response)
+          this.$notify.error({
+            title: '错误',
+            message: '登陆失败'
+          })
         })
-      })
+      }
+    },
+    created () {
+    },
+    activated () {
+    },
+    deactivated () {
     }
-  },
-  created () {
-  },
-  activated () {
-  },
-  deactivated () {
   }
-}
 </script>
 
 <style scoped>

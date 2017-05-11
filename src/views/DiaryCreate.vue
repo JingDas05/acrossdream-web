@@ -44,10 +44,17 @@ export default {
   computed: {},
   methods: {
     back () {
-      this.$router.back()
+//      this.$router.back()
+      this.$router.push({name: 'index'})
+      this.clear()
+    },
+    clear () {
+      this.diary.name = ''
+      this.diary.description = ''
+      this.diary.authorId = ''
     },
     resetForm () {
-      this.diary = {}
+      this.clear()
     },
     submitForm () {
       this.requestCreateDiary(this.diary.name, this.diary.description)
@@ -67,6 +74,12 @@ export default {
             type: 'success'
           })
         }
+        this.$router.push({name: 'index'})
+        // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
+        // 创建完日记之后，右侧现实日记导航，并且刷新
+        this.$store.dispatch('setShowDiaries', true)
+        this.$store.dispatch('setFlushDiaries', true)
+        this.clear()
       }, response => {
         this.$notify.error({
           title: '错误',

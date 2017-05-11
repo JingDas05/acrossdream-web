@@ -1,3 +1,5 @@
 
 export const SET_DIARY_ID = 'SET_DIARY_ID'
 export const SET_TIME = 'SET_TIME'
+export const SET_SHOW_DIARIES = 'SET_SHOW_DIARIES'
+export const SET_FLUSH_DIARIES = 'SET_FLUSH_DIARIES'

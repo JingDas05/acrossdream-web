@@ -174,6 +174,7 @@
     },
     activated () {
       this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+      this.$store.dispatch('setShowDiaries', true)
     },
     watch: {
       localDiaryId (newValue, oldValue) {

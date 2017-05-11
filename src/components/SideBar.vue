@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="5">
+  <el-col v-if="showDiaries" :span="5">
     <el-menu default-active="1" theme="light">
       <el-menu-item
         :index="diary.id"
@@ -12,7 +12,7 @@
   </el-col>
 </template>
 <script>
-
+import {mapGetters} from 'vuex'
 export default {
   data () {
     return {
@@ -20,7 +20,26 @@ export default {
     }
   },
   components: {},
-  computed: {},
+  computed: mapGetters({
+    // 映射 this.showDiaries 为 store.getters.showDiaries
+    showDiaries: 'showDiaries',
+    flushDiaries: 'flushDiaries'
+  }),
+  watch: {
+    showDiaries (newValue, oldValue) {
+      // 如果设置现实状态栏，或者前后value都是true，那么就再请求一次日记列表
+      if (newValue) {
+        console.error(this.flushDiaries)
+        this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+      }
+    },
+    flushDiaries (newValue, oldValue) {
+      if (newValue) {
+        console.error(this.flushDiaries)
+        this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+      }
+    }
+  },
   methods: {
     requestDiaries (userId, pageNum, pageSize) {
       this.$http.post('/tg/api/diaries',
@@ -30,6 +49,9 @@ export default {
           pageSize: pageSize
         }
       ).then(response => {
+        this.$store.dispatch('setShowDiaries', true)
+        // 强制刷新标志位置0
+        this.$store.dispatch('setFlushDiaries', false)
         this.diaries = response.body.data
       }, response => {
         console.error(response)
@@ -41,7 +63,7 @@ export default {
     }
   },
   created () {
-    this.requestDiaries('12345678123456781234567812345678', this.$consts.pageNum, this.$consts.pageSize)
+    this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
   },
   activated () {
   },

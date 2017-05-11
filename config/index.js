@@ -34,7 +34,7 @@ module.exports = {
       //     '^/tg': '/tg'
       //   },
         '/tg': {
-          target: 'http://192.168.1.102:3333',
+          target: 'http://192.168.1.101:3333',
           pathRewrite: {
             '^/tg': ''
           },

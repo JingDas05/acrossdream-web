@@ -1,5 +1,5 @@
 <template>
-  <div style="float: left; width: 65%">
+  <div style="float: left; width: 85%">
     <el-button @click="back()" type="success">返回</el-button>
     <div>
       <h1 style="text-align: center">{{pageDetail.name}}</h1>
@@ -36,12 +36,14 @@ export default {
       })
     },
     back () {
+//      this.$router.push({name: 'index'})
       this.$router.back()
     }
   },
   created () {
   },
   activated () {
+    this.$store.dispatch('setShowDiaries', false)
     this.requestPageDetail('', this.$route.params.pageId)
   },
   components: {
