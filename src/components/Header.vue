@@ -2,7 +2,7 @@
   <div style="margin-bottom: 10px">
     <el-row>
       <el-col :span="24" class="grid-content bg-purple-dark">
-        <router-link tag="span" :to="{name:'index'}" style="cursor: pointer">AcrossDream</router-link>
+        <span @click="toIndex()" style="cursor: pointer">AcrossDream</span>
         <router-link tag="span" :to="{name:'login'}" style="cursor: pointer">登陆</router-link>
         <span style="cursor: pointer" @click="logout()">退出</span>
       </el-col>
@@ -17,6 +17,11 @@ export default {
   components: {},
   computed: {},
   methods: {
+    toIndex () {
+      // 分发mutation setShowDiaries, 这个状态在 Index.vue中 mapGetters用到
+      this.$store.dispatch('setFlushPages', true)
+      this.$router.push({name: 'index'})
+    },
     logout () {
       this.$removeToken()
       this.$router.push({name: 'login'})

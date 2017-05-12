@@ -7,7 +7,8 @@
           <el-button @click="toPageCreate()" type="primary" icon="edit">创建记录</el-button>
         </div>
         <div style="margin-bottom: 10px">
-          <el-input v-on:keyup.enter="search(keyword)" style="width: 60%" v-model="keyword" placeholder="请输入搜索内容"></el-input>
+          <el-input v-on:keyup.enter="search(keyword)" style="width: 60%" v-model="keyword"
+                    placeholder="请输入搜索内容"></el-input>
           <el-button @click="search(keyword)" type="success">搜索</el-button>
         </div>
         <div>
@@ -32,18 +33,20 @@
             format="yyyy-MM-dd"
             placeholder="选择结束时间">
           </el-date-picker>
-          <el-button @click="queryBy(queryParams.diaryId, queryParams.startTime, queryParams.endTime)" type="success">搜索</el-button>
+          <el-button @click="queryBy(queryParams.diaryId, queryParams.startTime, queryParams.endTime)" type="success">
+            搜索
+          </el-button>
         </div>
       </div>
       <ul style="list-style: none">
         <li v-for="(page, index) in pages"
             :key="index"
             :class="[index%2==0 ? 'back-ground' : '']">
-            <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
-                         v-html="page.name"
-                         tag="h2"
-                         style="cursor: pointer">
-            </router-link>
+          <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
+                       v-html="page.name"
+                       tag="h2"
+                       style="cursor: pointer">
+          </router-link>
           <div>
             <!--<span>创建人：{{}}</span>&nbsp;&nbsp;-->
             <span class="el-icon-date">&nbsp;&nbsp;{{page.createTime}}</span>
@@ -85,7 +88,8 @@
     },
     computed: mapGetters({
       // 映射 this.localDiaryId 为 store.getters.diaryId
-      localDiaryId: 'diaryId'
+      localDiaryId: 'diaryId',
+      flushPages: 'flushPages'
     }),
     methods: {
       handleCurrentChange (currentPage) {
@@ -165,6 +169,7 @@
         ).then(response => {
           this.total = response.body.total
           this.pages = response.body.data
+          this.$store.dispatch('setFlushPages', false)
         }, response => {
           console.error(response)
         })
@@ -173,8 +178,20 @@
     created () {
     },
     activated () {
+//      console.error(this.localDiaryId)
+      if (this.localDiaryId || '') {
+        this.requestPages(
+          '',
+          this.localDiaryId,
+          '',
+          '',
+          this.$consts.pageNum,
+          this.$consts.pageSize)
+      }
       this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+      // 创建完日记之后，右侧现实日记导航，并且刷新
       this.$store.dispatch('setShowDiaries', true)
+      this.$store.dispatch('setFlushDiaries', true)
     },
     watch: {
       localDiaryId (newValue, oldValue) {
@@ -185,6 +202,17 @@
           '',
           this.$consts.pageNum,
           this.$consts.pageSize)
+      },
+      flushPages (newValue, oldValue) {
+        if (newValue && (this.localDiaryId || '')) {
+          this.requestPages(
+            '',
+            this.localDiaryId,
+            '',
+            '',
+            this.$consts.pageNum,
+            this.$consts.pageSize)
+        }
       }
     }
   }

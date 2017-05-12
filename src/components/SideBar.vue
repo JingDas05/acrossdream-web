@@ -29,13 +29,11 @@ export default {
     showDiaries (newValue, oldValue) {
       // 如果设置现实状态栏，或者前后value都是true，那么就再请求一次日记列表
       if (newValue) {
-        console.error(this.flushDiaries)
         this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
       }
     },
     flushDiaries (newValue, oldValue) {
       if (newValue) {
-        console.error(this.flushDiaries)
         this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
       }
     }

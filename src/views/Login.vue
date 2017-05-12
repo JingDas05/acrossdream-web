@@ -47,6 +47,7 @@
           this.$router.push({name: 'index'})
           // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
           this.$store.dispatch('setShowDiaries', true)
+          this.$store.dispatch('setFlushDiaries', true)
           this.user = {}
         }, response => {
           console.error(response)
