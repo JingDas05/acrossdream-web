@@ -57,6 +57,7 @@ export default {
       this.pageParams.content = ''
       this.pageParams.mind = ''
       this.pageParams.weather = ''
+      this.pageParams.name = ''
     },
     back () {
 //      this.$router.back()

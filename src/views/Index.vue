@@ -178,7 +178,6 @@
     created () {
     },
     activated () {
-//      console.error(this.localDiaryId)
       if (this.localDiaryId || '') {
         this.requestPages(
           '',
@@ -189,9 +188,6 @@
           this.$consts.pageSize)
       }
       this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
-      // 创建完日记之后，右侧现实日记导航，并且刷新
-      this.$store.dispatch('setShowDiaries', true)
-      this.$store.dispatch('setFlushDiaries', true)
     },
     watch: {
       localDiaryId (newValue, oldValue) {

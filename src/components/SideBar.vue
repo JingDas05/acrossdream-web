@@ -56,6 +56,9 @@ export default {
       })
     },
     setDiaryId (diaryId) {
+      if (this.$route.name !== 'index') {
+        this.$router.push({name: 'index'})
+      }
       // 分发mutation setDiaryId, 这个状态在 Index.vue中 mapGetters用到
       this.$store.dispatch('setDiaryId', diaryId)
     }
