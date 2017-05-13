@@ -2,7 +2,7 @@
   <div style="margin-bottom: 10px">
     <el-row>
       <el-col :span="24" class="grid-content bg-purple-dark">
-        <span @click="toIndex()" style="cursor: pointer">AcrossDream</span>
+        <span @click="toIndex()" style="cursor: pointer">云日记</span>
         <router-link tag="span" :to="{name:'login'}" style="cursor: pointer">登陆</router-link>
         <span style="cursor: pointer" @click="logout()">退出</span>
       </el-col>
