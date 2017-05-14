@@ -49,6 +49,7 @@
           this.$store.dispatch('setShowDiaries', true)
           this.$store.dispatch('setFlushDiaries', true)
           this.user = {}
+          this.$store.dispatch('setIsLogin', true)
         }, response => {
           console.error(response)
           this.$notify.error({

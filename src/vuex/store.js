@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import page from './modules/page'
 import diary from './modules/diary'
+import global from './modules/global'
 
 Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
@@ -10,7 +11,8 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   modules: {
     page,
-    diary
+    diary,
+    global
   },
   strict: debug,
   middlewares: debug ? [] : []

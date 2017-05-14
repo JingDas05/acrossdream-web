@@ -3,19 +3,23 @@
     <el-row>
       <el-col :span="24" class="grid-content bg-purple-dark">
         <span @click="toIndex()" style="cursor: pointer">云日记</span>
-        <router-link tag="span" :to="{name:'login'}" style="cursor: pointer">登陆</router-link>
-        <span style="cursor: pointer" @click="logout()">退出</span>
+        <router-link v-if="!isLogin" tag="span" :to="{name:'login'}" style="cursor: pointer">登录</router-link>
+        <span v-if="isLogin" style="cursor: pointer" @click="logout()">退出</span>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
   data () {
     return {}
   },
   components: {},
-  computed: {},
+  computed: mapGetters({
+    // 映射 this.localDiaryId 为 store.getters.diaryId
+    isLogin: 'isLogin'
+  }),
   methods: {
     toIndex () {
       // 分发mutation setShowDiaries, 这个状态在 Index.vue中 mapGetters用到
@@ -29,6 +33,7 @@ export default {
       // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
       this.$store.dispatch('setShowDiaries', false)
       this.$store.dispatch('setFlushDiaries', false)
+      this.$store.dispatch('setIsLogin', false)
     }
   },
   created () {
