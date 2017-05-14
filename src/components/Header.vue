@@ -37,6 +37,10 @@ export default {
     }
   },
   created () {
+    let token = this.$getToken()
+    if (token !== null && token !== '' && token !== 'undefined') {
+      this.$store.dispatch('setIsLogin', true)
+    }
   },
   activated () {
   },
