@@ -1,5 +1,5 @@
 <template>
-  <el-col v-if="showDiaries" :span="5">
+  <el-col v-show="showDiaries" :span="5">
     <el-menu default-active="1" theme="light">
       <el-menu-item
         :index="diary.id"

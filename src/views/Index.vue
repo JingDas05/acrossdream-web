@@ -51,7 +51,7 @@
             <!--<span>创建人：{{}}</span>&nbsp;&nbsp;-->
             <span class="el-icon-date">&nbsp;&nbsp;{{page.createTime}}</span>
           </div>
-          <p v-html="page.content"></p>
+          <p v-show="isShowContent" v-html="page.content"></p>
         </li>
       </ul>
     </div>
@@ -71,6 +71,7 @@
   export default {
     data () {
       return {
+        isShowContent: false,
         total: 0,
         keyword: '',
         queryParams: {
@@ -125,6 +126,7 @@
           }
         ).then(response => {
           this.pages = response.body.data
+          this.isShowContent = false
         }, response => {
           console.error(response)
         })
@@ -139,6 +141,7 @@
         ).then(response => {
           this.total = response.body.total
           this.pages = response.body.data
+          this.isShowContent = true
         }, response => {
           console.error(response)
         })

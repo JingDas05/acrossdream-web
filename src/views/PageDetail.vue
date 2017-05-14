@@ -37,6 +37,8 @@ export default {
     },
     back () {
 //      this.$router.push({name: 'index'})
+      this.$store.dispatch('setShowDiaries', true)
+      this.$store.dispatch('setFlushDiaries', true)
       this.$router.back()
     }
   },
