@@ -29,12 +29,12 @@ export default {
     showDiaries (newValue, oldValue) {
       // 如果设置现实状态栏，或者前后value都是true，那么就再请求一次日记列表
       if (newValue) {
-        this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+        this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
       }
     },
     flushDiaries (newValue, oldValue) {
       if (newValue) {
-        this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+        this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
       }
     }
   },
@@ -64,7 +64,7 @@ export default {
     }
   },
   created () {
-    this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+    this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
   },
   activated () {
   },

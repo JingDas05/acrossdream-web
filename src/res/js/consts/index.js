@@ -1,5 +1,6 @@
 
 export default {
-  pageSize: 100,
+  pageSize: 10,
+  sideBarPageSize: 100,
   pageNum: 0
 }

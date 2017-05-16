@@ -12,14 +12,14 @@
           <el-button @click="search(keyword)" type="success">搜索</el-button>
         </div>
         <div>
-          <el-select v-model="queryParams.diaryId" clearable placeholder="请选择日记">
-            <el-option
-              v-for="(diary, index) in diaries"
-              :key="diary.id"
-              :label="diary.name"
-              :value="diary.id">
-            </el-option>
-          </el-select>
+          <!--<el-select v-model="queryParams.diaryId" clearable placeholder="请选择日记">-->
+          <!--<el-option-->
+          <!--v-for="(diary, index) in diaries"-->
+          <!--:key="diary.id"-->
+          <!--:label="diary.name"-->
+          <!--:value="diary.id">-->
+          <!--</el-option>-->
+          <!--</el-select>-->
           <el-date-picker
             v-model="queryParams.startTime"
             type="date"
@@ -33,7 +33,7 @@
             format="yyyy-MM-dd"
             placeholder="选择结束时间">
           </el-date-picker>
-          <el-button @click="queryBy(queryParams.diaryId, queryParams.startTime, queryParams.endTime)" type="success">
+          <el-button @click="queryBy(queryParams.startTime, queryParams.endTime)" type="success">
             搜索
           </el-button>
         </div>
@@ -41,10 +41,11 @@
       <ul style="list-style: none">
         <li v-for="(page, index) in pages"
             :key="index"
-            :class="[index%2==0 ? 'back-ground' : '']">
+            :class="[index%2==0 ? 'back-ground' : '']"
+            class="index_page">
           <router-link :to="{ name: 'pageDetail', params: { pageId: page.id }}"
                        v-html="page.name"
-                       tag="h2"
+                       tag="h3"
                        style="cursor: pointer">
           </router-link>
           <div>
@@ -55,7 +56,7 @@
         </li>
       </ul>
     </div>
-    <div>
+    <div v-if="total > $consts.pageSize">
       <el-pagination
         @current-change="handleCurrentChange"
         :page-size="10"
@@ -76,9 +77,6 @@
         keyword: '',
         queryParams: {
           userId: '',
-          pageSize: 10,
-          pageNum: 1,
-          diaryId: '',
           startTime: '',
           endTime: ''
         },
@@ -96,7 +94,7 @@
       handleCurrentChange (currentPage) {
         this.requestPages(
           '',
-          this.queryParams.diaryId,
+          this.localDiaryId,
           this.queryParams.startTime,
           this.queryParams.endTime,
           currentPage,
@@ -111,8 +109,8 @@
       search (keyword) {
         this.requestSearch(keyword, 0, 10)
       },
-      queryBy (diaryId, startTime, endTime) {
-        this.requestBy('', 0, 8, diaryId, startTime, endTime)
+      queryBy (startTime, endTime) {
+        this.requestBy('', 0, 10, this.localDiaryId, startTime, endTime)
       },
       requestBy (userId, pageNum, pageSize, diaryId, startTime, endTime) {
         this.$http.post('/tg/api/pages/getByPeriod',

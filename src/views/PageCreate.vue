@@ -123,7 +123,7 @@ export default {
   created () {
   },
   activated () {
-    this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
+    this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
   },
   deactivated () {
   }
