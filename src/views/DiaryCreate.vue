@@ -54,6 +54,11 @@
     components: {},
     computed: {},
     methods: {
+      isNull (content) {
+        if (content === null || content === undefined || content === '') {
+          return true
+        }
+      },
       showDialog () {
         this.dialogVisible = true
 //        console.error(this.dialogVisible)
@@ -76,6 +81,12 @@
         this.dialogVisible = false
       },
       requestCreateDiary (name, description) {
+        let title = this.diary.name
+        if (this.isNull(title)) {
+          this.$alert('请填写日记名称', '提示', {
+            confirmButtonText: '确定'})
+          return
+        }
         this.$http.post('/tg/api/diaries/create',
           {
             authorId: '',

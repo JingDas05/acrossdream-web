@@ -8,7 +8,7 @@
         </div>
         <div style="margin-bottom: 10px">
           <el-input v-on:keyup.enter="search(keyword)" style="width: 60%" v-model="keyword"
-                    placeholder="请输入搜索内容"></el-input>
+                    placeholder="所有记录内容全局搜索"></el-input>
           <el-button @click="search(keyword)" type="success">搜索</el-button>
         </div>
         <div>
@@ -72,7 +72,6 @@
   export default {
     data () {
       return {
-        isShowContent: false,
         total: 0,
         keyword: '',
         queryParams: {
@@ -88,17 +87,35 @@
     computed: mapGetters({
       // 映射 this.localDiaryId 为 store.getters.diaryId
       localDiaryId: 'diaryId',
-      flushPages: 'flushPages'
+      flushPages: 'flushPages',
+      isShowContent: 'isShowContent',
+      currentStrategy: 'currentStrategy'
     }),
     methods: {
+      clear () {
+        this.keyword = ''
+      },
       handleCurrentChange (currentPage) {
-        this.requestPages(
-          '',
-          this.localDiaryId,
-          this.queryParams.startTime,
-          this.queryParams.endTime,
-          currentPage,
-          this.$consts.pageSize)
+        // 根据不同的策略，分页调用不用的api
+        if (this.currentStrategy === 'diary') {
+          this.requestPages(
+            '',
+            this.localDiaryId,
+            this.queryParams.startTime,
+            this.queryParams.endTime,
+            currentPage,
+            this.$consts.pageSize)
+        } else if (this.currentStrategy === 'search') {
+          this.requestSearch(this.keyword, (currentPage - 1) * this.$consts.pageSize, this.$consts.pageSize)
+        } else if (this.currentStrategy === 'searchByPeriod') {
+          this.requestBy(
+            '',
+            currentPage,
+            this.$consts.pageSize,
+            this.localDiaryId,
+            this.queryParams.startTime,
+            this.queryParams.endTime)
+        }
       },
       toDiaryCreate () {
         this.$router.push({name: 'diaryCreate'})
@@ -113,6 +130,8 @@
         this.requestBy('', 0, 10, this.localDiaryId, startTime, endTime)
       },
       requestBy (userId, pageNum, pageSize, diaryId, startTime, endTime) {
+        this.$store.dispatch('setCurrentStrategy', 'searchByPeriod')
+        this.clear()
         this.$http.post('/tg/api/pages/getByPeriod',
           {
             userId: userId,
@@ -124,12 +143,14 @@
           }
         ).then(response => {
           this.pages = response.body.data
-          this.isShowContent = false
+          this.$store.dispatch('setIsShowContent', false)
         }, response => {
           console.error(response)
         })
       },
       requestSearch (keyword, from, size) {
+        this.$store.dispatch('setCurrentStrategy', 'search')
+        console.error(this.currentStrategy)
         this.$http.post('/tg/api/search',
           {
             keyword: keyword,
@@ -139,7 +160,7 @@
         ).then(response => {
           this.total = response.body.total
           this.pages = response.body.data
-          this.isShowContent = true
+          this.$store.dispatch('setIsShowContent', true)
         }, response => {
           console.error(response)
         })
@@ -158,6 +179,8 @@
         })
       },
       requestPages (userId, diaryId, startTime, endTime, pageNum, pageSize) {
+        this.$store.dispatch('setCurrentStrategy', 'diary')
+        this.clear()
         this.$http.post('/tg/api/pages/getByPeriod',
           {
             userId: userId,
@@ -170,13 +193,14 @@
         ).then(response => {
           this.total = response.body.total
           this.pages = response.body.data
-          this.$store.dispatch('setFlushPages', false)
+          this.$store.dispatch('setIsShowContent', false)
         }, response => {
           console.error(response)
         })
       }
     },
     created () {
+      this.clear()
     },
     activated () {
       if (this.localDiaryId || '') {

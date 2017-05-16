@@ -23,7 +23,7 @@
         },
         rules: {
           username: [
-            {required: true, message: '输入电话', trigger: 'blur'}
+            {required: true, message: '输入用户名', trigger: 'blur'}
           ],
           password: [
             {required: true, message: '输入密码', trigger: 'blur'},

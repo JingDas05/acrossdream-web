@@ -64,7 +64,24 @@ export default {
       this.$router.push({name: 'index'})
       this.clear()
     },
+    isNull (content) {
+      if (content === null || content === undefined || content === '') {
+        return true
+      }
+    },
     create () {
+      let diaryId = this.pageParams.diaryId
+      let title = this.pageParams.name
+      if (this.isNull(diaryId)) {
+        this.$alert('请选择记录所属日记', '提示', {
+          confirmButtonText: '确定'})
+        return
+      }
+      if (this.isNull(title)) {
+        this.$alert('请填写记录标题', '提示', {
+          confirmButtonText: '确定'})
+        return
+      }
       this.requestCreatePage(this.pageParams.diaryId,
         this.pageParams.name,
         this.pageParams.content,
