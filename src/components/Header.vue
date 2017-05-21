@@ -2,9 +2,10 @@
   <div style="margin-bottom: 10px">
     <el-row>
       <el-col :span="24" class="grid-content bg-purple-dark">
-        <span @click="toIndex()" style="cursor: pointer">云日记</span>
-        <router-link v-if="!isLogin" tag="span" :to="{name:'login'}" style="cursor: pointer">登录</router-link>
-        <span v-if="isLogin" style="cursor: pointer" @click="logout()">退出</span>
+        <span @click="toIndex()" style="float: left;cursor: pointer; margin-top: 6px; margin-right: 3px">云日记</span>
+        <router-link v-if="!isLogin" tag="span" :to="{name:'login'}" style="float: left; cursor: pointer; margin-top: 6px">登录</router-link>
+        <span v-if="isLogin" style="float: left; cursor: pointer; margin-top: 6px" @click="logout()">退出</span>
+        <span style="float: right; margin-top: 9px">wusi0109@163.com</span>
       </el-col>
     </el-row>
   </div>
