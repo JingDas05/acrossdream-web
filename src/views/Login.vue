@@ -2,7 +2,7 @@
   <div style="float: left; width: 65%">
       <el-form label-width="100px" :model="user" :rules="rules" ref="user" label-position="left">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="user.username"></el-input>
+          <el-input v-model="user.username" placeholder="站长邮箱：wusi0109@163.com"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input type="password" v-model="user.password"></el-input>
@@ -54,7 +54,7 @@
           console.error(response)
           this.$notify.error({
             title: '错误',
-            message: '登陆失败'
+            message: '登陆失败，请联系站长，邮箱:wusi0109@163.com'
           })
         })
       }
