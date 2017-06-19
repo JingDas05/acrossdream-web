@@ -2,13 +2,13 @@
   <div style="float: left; width: 65%">
       <el-form label-width="100px" :model="user" :rules="rules" ref="user" label-position="left">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="user.username" placeholder="站长邮箱：wusi0109@163.com"></el-input>
+          <el-input v-model="user.username" placeholder="站长邮箱：wusi0109@163.com" @keyup.native.enter="submitForm(user)"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="user.password"></el-input>
+          <el-input type="password" v-model="user.password" @keyup.native.enter="submitForm(user)"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm(user)">登陆</el-button>
+          <el-button type="primary" @click="submitForm(user)">登录</el-button>
         </el-form-item>
       </el-form>
   </div>

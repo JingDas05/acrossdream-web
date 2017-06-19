@@ -12,7 +12,12 @@ import './res/js/filter/index'
 import './res/js/storage/index'
 import VueQuillEditor from 'vue-quill-editor'
 
-Vue.config.productionTip = false
+const isDebugMode = process.env.NODE_ENV !== 'production'
+Vue.config.debug = isDebugMode
+Vue.config.devtools = isDebugMode
+Vue.config.productionTip = isDebugMode
+
+// Vue.config.productionTip = false
 Vue.use(elementUI)
 Vue.use(VueResource)
 Vue.use(plugins)
