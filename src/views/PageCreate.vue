@@ -17,6 +17,7 @@
       <el-input v-model="pageParams.mind" placeholder="心情" class="input"></el-input>
       <el-input v-model="pageParams.weather" placeholder="天气" class="input"></el-input>
     </div>
+    <input ref="files" type="file" name="avatar" id="avatar" v-on:change="upload">
     <div>
       <md-card>
         <md-card-media>
@@ -52,6 +53,21 @@ export default {
   computed: {
   },
   methods: {
+    upload: function (e) {
+      console.error('上传改变了')
+      e.preventDefault()
+      // var files = this.$refs.files
+      var files = e.target.files
+      var data = new FormData()
+      data.append('file', files[0])
+      console.error(data)
+
+      this.$http.post('/tg/api/upload', data).then(response => {
+        // done handing
+      }, response => {
+        // error handing
+      })
+    },
     clear () {
       this.pageParams.diaryId = ''
       this.pageParams.content = ''
