@@ -20,12 +20,13 @@
     <!--input上传图片组件，调用方法upload-->
     <!--<input ref="files" type="file" name="upload-file" id="upload-file" v-on:change="upload">-->
     <div>
-          <div style="height: 100em">
+          <div>
             <!-- quill-editor -->
             <quill-editor ref="myTextEditor"
                           v-model="pageParams.content"
                           :options="editorOption"
-                          @change="onChange">
+                          @change="onChange"
+                          style="height: 100em">
               <div id="toolbar" slot="toolbar">
                 <span class="ql-formats"><button type="button" class="ql-bold"></button></span>
                 <span class="ql-formats"><button type="button" class="ql-italic"></button></span>
@@ -176,6 +177,7 @@
 <script>
 export default {
   // vue 七牛云上传项目 https://github.com/SkyFire-Lee/vue-qiniu-upload-demo
+  // quill官网https://quilljs.com/docs/modules/toolbar/， 有对富文本工具栏的一些api
   data () {
     return {
       fileKey: 'file',
@@ -275,6 +277,7 @@ export default {
       this.pageParams.mind = ''
       this.pageParams.weather = ''
       this.pageParams.name = ''
+      this.text = ''
     },
     back () {
 //      this.$router.back()
@@ -303,7 +306,8 @@ export default {
         this.pageParams.name,
         this.pageParams.content,
         this.pageParams.mind,
-        this.pageParams.weather)
+        this.pageParams.weather,
+        this.text)
     },
     requestDiaries (userId, pageNum, pageSize) {
       this.$http.post('/tg/api/diaries',
@@ -322,7 +326,8 @@ export default {
         })
       })
     },
-    requestCreatePage (diaryId, name, content, mind, weather) {
+    // text是纯文本
+    requestCreatePage (diaryId, name, content, mind, weather, text) {
       this.$http.post('tg/api/pages/create',
         {
           authorId: '',
@@ -330,7 +335,8 @@ export default {
           name: name,
           content: content,
           mind: mind,
-          weather: weather
+          weather: weather,
+          text: text
         }
       ).then(response => {
         if (response.body.id !== 'undefined') {

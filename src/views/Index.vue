@@ -150,7 +150,6 @@
       },
       requestSearch (keyword, from, size) {
         this.$store.dispatch('setCurrentStrategy', 'search')
-        console.error(this.currentStrategy)
         this.$http.post('/tg/api/search',
           {
             keyword: keyword,
