@@ -29,13 +29,20 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/tg': {
-          target: 'http://192.168.1.103:3333',
-          pathRewrite: {
-            '^/tg': ''
-          },
+      '/tg': {
+        target: 'http://192.168.1.103:3333',
+        pathRewrite: {
+          '^/tg': ''
+        },
         secure: false
-      }
+      },
+      // 这个地方由于feign client 远程调用的时候，会报错，当前的请求不是 multipart 请求，
+      // 解码器在后台已经参照着 https://github.com/OpenFeign/feign-form 重写了一下，但是效果不好
+      // 暂时只是调用 provider 的上传api
+      '/api': {
+        target: 'http://192.168.1.103:2222',
+        secure: false
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
