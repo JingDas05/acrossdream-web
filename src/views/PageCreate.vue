@@ -229,7 +229,7 @@ export default {
       data.append(this.fileKey, files[0])
       this.$http.post(this.uploadUrl, data).then(response => {
         if (response.data) {
-          this.editor.insertEmbed(this.editor.getSelection().index, 'image', response.data.url)
+          this.editor.insertEmbed(this.editor.getSelection().index, 'image', response.body.httpPath)
         }
       }, response => {
         // error handing
