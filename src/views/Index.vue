@@ -202,6 +202,7 @@
       this.clear()
     },
     activated () {
+      this.$store.dispatch('setShowDiaries', true)
       if (this.localDiaryId || '') {
         this.requestPages(
           '',

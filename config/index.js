@@ -30,7 +30,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/tg': {
-        target: 'http://192.168.1.103:3333',
+        target: 'http://192.168.1.101:3333',
         pathRewrite: {
           '^/tg': ''
         },
@@ -40,7 +40,7 @@ module.exports = {
       // 解码器在后台已经参照着 https://github.com/OpenFeign/feign-form 重写了一下，但是效果不好
       // 暂时只是调用 provider 的上传api
       '/api': {
-        target: 'http://192.168.1.103:2222',
+        target: 'http://192.168.1.101:2222',
         secure: false
       },
     },

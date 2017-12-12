@@ -24,7 +24,6 @@ Vue.use(plugins)
 Vue.use(VueQuillEditor)
 
 Vue.http.interceptors.push((request, next) => {
-  console.log(request)
   let token = localStorage.getItem('token')
   if (token !== 'undefined' && token !== '' && token !== null) {
     request.headers.set('X-Auth-Token', token)
