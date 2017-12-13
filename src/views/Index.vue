@@ -89,7 +89,9 @@
       localDiaryId: 'diaryId',
       flushPages: 'flushPages',
       isShowContent: 'isShowContent',
-      currentStrategy: 'currentStrategy'
+      currentStrategy: 'currentStrategy',
+      // 映射 this.isLogin 为 store.getters.isLogin
+      isLogin: 'isLogin'
     }),
     methods: {
       clear () {
@@ -118,9 +120,23 @@
         }
       },
       toDiaryCreate () {
+        if (!this.isLogin) {
+          this.$notify({
+            title: '成功',
+            message: '请先登录',
+            type: 'success'
+          })
+        }
         this.$router.push({name: 'diaryCreate'})
       },
       toPageCreate () {
+        if (!this.isLogin) {
+          this.$notify({
+            title: '成功',
+            message: '请先登录',
+            type: 'success'
+          })
+        }
         this.$router.push({name: 'pageCreate'})
       },
       search (keyword) {
@@ -145,7 +161,6 @@
           this.pages = response.body.data
           this.$store.dispatch('setIsShowContent', false)
         }, response => {
-          console.error(response)
         })
       },
       requestSearch (keyword, from, size) {
@@ -161,7 +176,6 @@
           this.pages = response.body.data
           this.$store.dispatch('setIsShowContent', true)
         }, response => {
-          console.error(response)
         })
       },
       requestDiaries (userId, pageNum, pageSize) {
@@ -174,7 +188,6 @@
         ).then(response => {
           this.diaries = response.body.data
         }, response => {
-          console.error(response)
         })
       },
       requestPages (userId, diaryId, startTime, endTime, pageNum, pageSize) {
@@ -194,7 +207,6 @@
           this.pages = response.body.data
           this.$store.dispatch('setIsShowContent', false)
         }, response => {
-          console.error(response)
         })
       }
     },
@@ -202,7 +214,9 @@
       this.clear()
     },
     activated () {
+      // 显示边框栏
       this.$store.dispatch('setShowDiaries', true)
+      // 请求记录数据
       if (this.localDiaryId || '') {
         this.requestPages(
           '',
@@ -212,9 +226,11 @@
           this.$consts.pageNum,
           this.$consts.pageSize)
       }
+      // 请求日记列表
       this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
     },
     watch: {
+      // 检测到  diaryId 发生变化后请求记录列表
       localDiaryId (newValue, oldValue) {
         this.requestPages(
           '',

@@ -12,65 +12,65 @@
   </el-col>
 </template>
 <script>
-import {mapGetters} from 'vuex'
-export default {
-  data () {
-    return {
-      diaries: []
-    }
-  },
-  components: {},
-  computed: mapGetters({
-    // 映射 this.showDiaries 为 store.getters.showDiaries
-    showDiaries: 'showDiaries',
-    flushDiaries: 'flushDiaries'
-  }),
-  watch: {
-    showDiaries (newValue, oldValue) {
-      // 如果设置现实状态栏，或者前后value都是true，那么就再请求一次日记列表
-      if (newValue) {
-        this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
+  import {mapGetters} from 'vuex'
+  export default {
+    data () {
+      return {
+        diaries: []
       }
     },
-    flushDiaries (newValue, oldValue) {
-      if (newValue) {
-        this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
-      }
-    }
-  },
-  methods: {
-    requestDiaries (userId, pageNum, pageSize) {
-      this.$http.post('/tg/api/diaries',
-        {
-          userId: userId,
-          pageNum: pageNum,
-          pageSize: pageSize
+    components: {},
+    computed: mapGetters({
+      // 映射 this.showDiaries 为 store.getters.showDiaries
+      showDiaries: 'showDiaries',
+      flushDiaries: 'flushDiaries'
+    }),
+    watch: {
+      showDiaries (newValue, oldValue) {
+        // 如果设置现实状态栏，或者前后value都是true，那么就再请求一次日记列表
+        if (newValue) {
+          this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
         }
-      ).then(response => {
-        this.$store.dispatch('setShowDiaries', true)
-        // 强制刷新标志位置0
-        this.$store.dispatch('setFlushDiaries', false)
-        this.diaries = response.body.data
-      }, response => {
-        console.error(response)
-      })
-    },
-    setDiaryId (diaryId) {
-      if (this.$route.name !== 'index') {
-        this.$router.push({name: 'index'})
+      },
+      flushDiaries (newValue, oldValue) {
+        if (newValue) {
+          this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
+        }
       }
-      // 分发mutation setDiaryId, 这个状态在 Index.vue中 mapGetters用到
-      this.$store.dispatch('setDiaryId', diaryId)
+    },
+    methods: {
+      requestDiaries (userId, pageNum, pageSize) {
+        this.$http.post('/tg/api/diaries',
+          {
+            userId: userId,
+            pageNum: pageNum,
+            pageSize: pageSize
+          }
+        ).then(response => {
+          this.$store.dispatch('setShowDiaries', true)
+          // 强制刷新标志位置0
+          this.$store.dispatch('setFlushDiaries', false)
+          this.diaries = response.body.data
+        }, response => {
+        })
+      },
+      setDiaryId (diaryId) {
+        // 跳转到首页
+        if (this.$route.name !== 'index') {
+          this.$router.push({name: 'index'})
+        }
+        // 分发mutation setDiaryId, 这个状态在 Index.vue中 设置 setDiaryId
+        this.$store.dispatch('setDiaryId', diaryId)
+      }
+    },
+    created () {
+      this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
+    },
+    activated () {
+    },
+    deactivated () {
     }
-  },
-  created () {
-    this.requestDiaries('', this.$consts.pageNum, this.$consts.sideBarPageSize)
-  },
-  activated () {
-  },
-  deactivated () {
   }
-}
 </script>
 
 <style scoped>

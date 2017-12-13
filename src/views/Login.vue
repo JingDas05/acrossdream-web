@@ -42,7 +42,6 @@
         this.$http.post('/tg/login',
           user
         ).then(response => {
-          console.log(response)
           this.$setToken(response.body.token)
           this.$router.push({name: 'index'})
           // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
@@ -51,7 +50,6 @@
           this.user = {}
           this.$store.dispatch('setIsLogin', true)
         }, response => {
-          console.error(response)
           this.$notify.error({
             title: '错误',
             message: '登陆失败，请联系站长，邮箱:wusi0109@163.com'
