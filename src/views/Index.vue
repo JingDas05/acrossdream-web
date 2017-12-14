@@ -12,14 +12,6 @@
           <el-button @click="search(keyword)" type="success">搜索</el-button>
         </div>
         <div>
-          <!--<el-select v-model="queryParams.diaryId" clearable placeholder="请选择日记">-->
-          <!--<el-option-->
-          <!--v-for="(diary, index) in diaries"-->
-          <!--:key="diary.id"-->
-          <!--:label="diary.name"-->
-          <!--:value="diary.id">-->
-          <!--</el-option>-->
-          <!--</el-select>-->
           <el-date-picker
             v-model="queryParams.startTime"
             type="date"
@@ -80,7 +72,6 @@
           endTime: ''
         },
         pages: [],
-        diaries: [],
         key: ''
       }
     },
@@ -122,20 +113,24 @@
       toDiaryCreate () {
         if (!this.isLogin) {
           this.$notify({
-            title: '成功',
+            title: '温馨提示',
             message: '请先登录',
             type: 'success'
           })
+          this.$router.push({name: 'login'})
+          return
         }
         this.$router.push({name: 'diaryCreate'})
       },
       toPageCreate () {
         if (!this.isLogin) {
           this.$notify({
-            title: '成功',
+            title: '温馨提示',
             message: '请先登录',
             type: 'success'
           })
+          this.$router.push({name: 'login'})
+          return
         }
         this.$router.push({name: 'pageCreate'})
       },
@@ -178,18 +173,6 @@
         }, response => {
         })
       },
-      requestDiaries (userId, pageNum, pageSize) {
-        this.$http.post('/tg/api/diaries',
-          {
-            userId: userId,
-            pageNum: pageNum,
-            pageSize: pageSize
-          }
-        ).then(response => {
-          this.diaries = response.body.data
-        }, response => {
-        })
-      },
       requestPages (userId, diaryId, startTime, endTime, pageNum, pageSize) {
         this.$store.dispatch('setCurrentStrategy', 'diary')
         this.clear()
@@ -216,6 +199,8 @@
     activated () {
       // 显示边框栏
       this.$store.dispatch('setShowDiaries', true)
+      // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
+      // this.$store.dispatch('setFlushDiaries', true)
       // 请求记录数据
       if (this.localDiaryId || '') {
         this.requestPages(
@@ -226,8 +211,6 @@
           this.$consts.pageNum,
           this.$consts.pageSize)
       }
-      // 请求日记列表
-      this.requestDiaries('', this.$consts.pageNum, this.$consts.pageSize)
     },
     watch: {
       // 检测到  diaryId 发生变化后请求记录列表

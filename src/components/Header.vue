@@ -25,16 +25,11 @@
     }),
     methods: {
       toIndex () {
-        // 分发mutation setShowDiaries, 这个状态在 Index.vue中 mapGetters用到
-        this.$store.dispatch('setShowDiaries', true)
-        this.$store.dispatch('setFlushPages', true)
         this.$router.push({name: 'index'})
       },
       logout () {
         this.$removeToken()
-        this.$router.push({name: 'login'})
         // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
-        this.$store.dispatch('setShowDiaries', false)
         this.$store.dispatch('setIsLogin', false)
       }
     },

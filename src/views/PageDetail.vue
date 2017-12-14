@@ -36,8 +36,6 @@ export default {
       })
     },
     back () {
-      // 显示左侧日记列表
-      this.$store.dispatch('setShowDiaries', true)
       this.$router.back()
     }
   },

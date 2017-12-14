@@ -102,7 +102,7 @@
             })
           }
           this.$router.push({name: 'index'})
-          // 分发 action
+          // 分发 action， 刷新日记
           this.$store.dispatch('setFlushPages', true)
           this.$store.dispatch('setFlushDiaries', true)
           this.clear()
