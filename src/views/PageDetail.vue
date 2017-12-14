@@ -36,6 +36,7 @@ export default {
       })
     },
     back () {
+      // 显示左侧日记列表
       this.$store.dispatch('setShowDiaries', true)
       this.$router.back()
     }
@@ -43,6 +44,7 @@ export default {
   created () {
   },
   activated () {
+    // 不显示左侧日记列表，并且请求日记详情
     this.$store.dispatch('setShowDiaries', false)
     this.requestPageDetail('', this.$route.params.pageId)
   },

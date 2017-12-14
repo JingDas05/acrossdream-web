@@ -232,14 +232,13 @@ export default {
           this.editor.insertEmbed(this.editor.getSelection().index, 'image', response.body.httpPath)
         }
       }, response => {
-        // error handing
-        console.log('上传图片失败')
+        console.error(response)
       })
     },
     // 编辑器中点击上传图片按钮，触发的方法
     imgClick () {
       if (!this.uploadUrl) {
-        console.log('没有设定上传路径')
+        console.error('没有设定上传路径')
         return
       }
       // 内存创建input file， 这个也可以在当前页面隐藏一个input
@@ -280,7 +279,6 @@ export default {
       this.text = ''
     },
     back () {
-//      this.$router.back()
       this.$router.push({name: 'index'})
       this.clear()
     },

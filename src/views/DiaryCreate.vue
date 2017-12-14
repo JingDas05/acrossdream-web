@@ -102,12 +102,12 @@
             })
           }
           this.$router.push({name: 'index'})
-          // 分发mutation setShowDiaries, 这个状态在 SideBar.vue中 mapGetters用到
+          // 分发 action
           this.$store.dispatch('setFlushPages', true)
-          this.$store.dispatch('setShowDiaries', true)
           this.$store.dispatch('setFlushDiaries', true)
           this.clear()
         }, response => {
+          console.error(response)
           this.$notify.error({
             title: '错误',
             message: '创建日记失败，请联系管理员，邮箱wusi0109@163.com'

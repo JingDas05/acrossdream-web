@@ -1,6 +1,6 @@
 import * as types from '../mutation_type'
 
-// 定义state, 注意这个地方不能自定义命名
+// 定义state
 const state = {
   showDiaries: false,
   flushDiaries: false
@@ -15,14 +15,14 @@ const mutations = {
   }
 }
 
-// 定义getters
+// 定义getters,获取状态值
 const getters = {
   showDiaries: state => state.showDiaries,
   flushDiaries: state => state.flushDiaries
 
 }
 
-// 定义actions
+// 定义actions，提交mutations
 const actions = {
   setShowDiaries ({commit}, isShowDiaries) {
     commit(types.SET_SHOW_DIARIES, isShowDiaries)

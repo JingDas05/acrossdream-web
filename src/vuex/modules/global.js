@@ -3,8 +3,9 @@ import * as types from '../mutation_type'
 // 定义state, 注意这个地方不能自定义命名
 const state = {
   isLogin: false,
+  // 这个地方展示的是记录列表页是否展示具体内容
   isShowContent: false,
-  // diary:左侧日记列表点击，  search：全文检索， searchByPeriod 日期搜索
+  // 当前搜索策略： diary:左侧日记列表点击， search：全文检索， searchByPeriod 日期搜索
   currentStrategy: 'diary'
 }
 // 定义 mutations 改变state

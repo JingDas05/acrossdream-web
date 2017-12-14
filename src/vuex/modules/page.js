@@ -1,9 +1,11 @@
 import * as types from '../mutation_type'
 
-// 定义state, 注意这个地方不能自定义命名
+// 定义state
 const state = {
   flushPages: false,
+  // 保存的是当前选择的日记id
   diaryId: '',
+  // 当前查询的
   dateParams: {
     startTime: '',
     endTime: ''
