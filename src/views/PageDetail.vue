@@ -40,6 +40,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('setShowDiaries', false)
   },
   activated () {
     // 不显示左侧日记列表，并且请求日记详情

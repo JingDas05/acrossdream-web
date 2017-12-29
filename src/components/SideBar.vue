@@ -42,7 +42,10 @@
             pageSize: pageSize
           }
         ).then(response => {
-          this.$store.dispatch('setShowDiaries', true)
+          // 详情页，侧边栏不展示
+          if (this.$router.name !== 'pageDetail') {
+            this.$store.dispatch('setShowDiaries', true)
+          }
           // 强制刷新标志位置0
           this.$store.dispatch('setFlushDiaries', false)
           this.diaries = response.body.data

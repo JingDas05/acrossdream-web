@@ -7,7 +7,7 @@
                      style="float: left; cursor: pointer; margin-top: 6px">登录
         </router-link>
         <span v-if="isLogin" style="float: left; cursor: pointer; margin-top: 6px" @click="logout()">退出</span>
-        <span style="float: right; margin-top: 9px">wusi0109@163.com</span>
+        <!--<span style="float: right; margin-top: 9px">wusi0109@163.com</span>-->
       </el-col>
     </el-row>
   </div>

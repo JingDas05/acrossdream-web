@@ -44,3 +44,15 @@ new Vue({
   template: '<App/>',
   components: {App}
 })
+
+// cordova 打包app需要,平时可以注释掉
+// document.addEventListener('deviceready', function () {
+//   new Vue({
+//     el: '#app',
+//     router,
+//     store,
+//     template: '<App/>',
+//     components: { App }
+//   })
+//   window.navigator.splashscreen.hide()
+// }, false)

@@ -108,9 +108,9 @@
           this.clear()
         }, response => {
           console.error(response)
-          this.$notify.error({
-            title: '错误',
-            message: '创建日记失败，请联系管理员，邮箱wusi0109@163.com'
+          this.$notify({
+            title: '提示',
+            message: '登录后创建，账号密码联系wusi0109@163.com'
           })
         })
       }
